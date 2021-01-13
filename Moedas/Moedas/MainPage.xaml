@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Moedas.MainPage">
+
+    <ScrollView>
+        <StackLayout Spacing="20" Margin="20">
+            
+            <Label 
+                Text="Lista de Moedas" 
+                FontAttributes="Bold" 
+                HorizontalOptions="Center" />
+
+            <Picker 
+                Title="Selecione uma Moeda"
+                FontSize="Large"
+                ItemsSource="{Binding Coins}" 
+                ItemDisplayBinding="{Binding simbolo}" 
+                SelectedItem="{Binding SelectedCoin}" />
+
+            <Label  
+                Text="Descricao: "
+                FontSize="Medium" 
+                TextColor="Black" 
+                HorizontalOptions="Start"/>
+            <Label 
+                FontSize="Medium" 
+                Text="{Binding SelectedCoin.nomeFormatado}"
+                TextColor="Gray" 
+                HorizontalOptions="Center"/>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
