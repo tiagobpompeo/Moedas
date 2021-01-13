@@ -44,6 +44,8 @@ namespace Moedas.ViewModels
                 {
                     selectedCoins = value;
                     OnPropertyChanged();
+
+
                 }
             }
         }
@@ -54,33 +56,57 @@ namespace Moedas.ViewModels
         {
             _iCoinsService = iCoinsService;
             Coins = new  ObservableCollection<CoinsModel.Value>();
+
             LoadAsync();
         }
 
         public async Task LoadAsync()
         {
-           
+            var sqliteBanco = await App.CoinRepository.GetAllProductAsync();//Read
 
-            var result = await  _iCoinsService.GetAllCoinsAsync();
-
-            foreach (var x in result) 
+            if (sqliteBanco != null || sqliteBanco.Count > 0)
             {
-                Coins.Add(new CoinsModel.Value 
-                { 
-                    nomeFormatado = x.nomeFormatado,
-                    tipoMoeda = x.tipoMoeda,
-                    simbolo = x.simbolo
-                });
-            
+                foreach (var x in sqliteBanco)
+                {
+                    Coins.Add(new CoinsModel.Value
+                    {
+                        nomeFormatado = x.nomeFormatado,
+                        tipoMoeda = x.tipoMoeda,
+                        simbolo = x.simbolo
+                    });
+                }
+            }
+            else 
+            {
+                var result = await _iCoinsService.GetAllCoinsAsync();
+
+                foreach (var x in result)
+                {
+                    Coins.Add(new CoinsModel.Value
+                    {
+                        nomeFormatado = x.nomeFormatado,
+                        tipoMoeda = x.tipoMoeda,
+                        simbolo = x.simbolo
+                    });
+
+                    await App.CoinRepository.AddNewProductAsync(new Sqlite.CoinSqliteModel
+                    {
+                        nomeFormatado = x.nomeFormatado,
+                        simbolo = x.simbolo,
+                        tipoMoeda = x.tipoMoeda
+                    });//Create
+
+                }
             }
 
-            //CRUD
+           
 
-            await App.CoinRepository.AddNewProductAsync(null);//Create
-            await App.CoinRepository.GetAllProductAsync();//Read
-            await App.CoinRepository.RemoveProductAsync(1);//Delete 
-            await App.CoinRepository.DeleteAllListaAsync();//Delete
-            await App.CoinRepository.UpdateItemAsync(null);//update
+            //CRUD
+          
+            //await App.CoinRepository.GetAllProductAsync();//Read
+            //await App.CoinRepository.RemoveProductAsync(1);//Delete 
+            // await App.CoinRepository.DeleteAllListaAsync();//Delete
+            //await App.CoinRepository.UpdateItemAsync(null);//update
            
           
         }
