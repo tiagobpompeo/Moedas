@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using FFImageLoading.Forms.Platform;
+using FFImageLoading.Svg.Forms;
 using Foundation;
 using Moedas.iOS.Helpers;
 using UIKit;
@@ -24,9 +25,9 @@ namespace Moedas.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-
-            string dbPath = FileAccessHelper.GetLocalFilePath("listacoins.db3");
-            LoadApplication(new App(dbPath));
+            CachedImageRenderer.Init();
+            var ignore = typeof(SvgCachedImage);
+            LoadApplication(new App());
             return base.FinishedLaunching(app, options);
         }
     }

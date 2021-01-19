@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Moedas.Droid.Helpers;
+using FFImageLoading.Forms.Platform;
+using FFImageLoading.Svg.Forms;
 
 namespace Moedas.Droid
 {
@@ -17,12 +19,13 @@ namespace Moedas.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            string dbPath = FileAccessHelper.GetLocalFilePath("listacoins.db3");
+            CachedImageRenderer.Init(true);
+            var ignore = typeof(SvgCachedImage);
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App(dbPath));
+            LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

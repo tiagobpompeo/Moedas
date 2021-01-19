@@ -1,35 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"            
+             xmlns:ff="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              x:Class="Moedas.MainPage">
 
     <ScrollView>
-        <StackLayout Spacing="20" Margin="20">
+      
             
-            <Label 
-                Text="Lista de Moedas" 
-                FontAttributes="Bold" 
-                HorizontalOptions="Center" />
+            
+    
+            <CollectionView 
+                Margin="0,0,0,20"
+                BackgroundColor="LightGray"
+                ItemsSource="{Binding SelectedItems}"  
+                SelectionMode="Single"
+                SelectedItem="{Binding DeleteCoinCommand}">
+                <CollectionView.Header>
+                    <StackLayout>
+                      <Label 
+                        Margin="30"
+                        Text="Selecione uma moeda para salvar" 
+                        FontAttributes="Bold" 
+                        HorizontalTextAlignment="Center"
+                        FontSize="Title"
+                        HorizontalOptions="Center" />   
 
-            <Picker 
-                Title="Selecione uma Moeda"
-                FontSize="Large"
-                ItemsSource="{Binding Coins}" 
-                ItemDisplayBinding="{Binding simbolo}" 
-                SelectedItem="{Binding SelectedCoin}" />
+                        <Picker 
+                            Margin="10,0,10,0"       
+                            Title="Selecione uma Moeda"
+                            FontSize="Large"
+                            ItemsSource="{Binding Coins}" 
+                            ItemDisplayBinding="{Binding nomeFormatado}" 
+                            SelectedItem="{Binding SelectedCoin}" />
 
-            <Label  
-                Text="Descricao: "
-                FontSize="Medium" 
-                TextColor="Black" 
-                HorizontalOptions="Start"/>
-            <Label 
-                FontSize="Medium" 
-                Text="{Binding SelectedCoin.nomeFormatado}"
-                TextColor="Gray" 
-                HorizontalOptions="Center"/>
+                        <Label  
+                            Margin="10,30,10,0"   
+                            TextDecorations="Underline"
+                            Text="Moedas Selecionadas: "
+                            FontSize="Medium" 
+                            TextColor="Black" 
+                            HorizontalOptions="Start"/> 
+                    </StackLayout>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-        </StackLayout>
+                            <StackLayout Margin="10,0,10,0" Grid.Row="0" Orientation="Horizontal" >
+                                <Label 
+                                   Text="{Binding nomeFormatado}"
+                                   FontAttributes="Italic"
+                                   TextColor="Black"
+                                   VerticalOptions="End"/>
+                                <ff:SvgCachedImage  
+                                    LoadingPlaceholder="delete.svg"
+                                    HeightRequest="30" 
+                                    WidthRequest="30" 
+                                    HorizontalOptions="EndAndExpand" 
+                                    Source="delete.svg"/>
+                            </StackLayout>
+                           
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <StackLayout>
+                        <Button 
+                            Margin="30"
+                            BackgroundColor="AntiqueWhite"
+                            Text="Deletar Selecionados"
+                            HorizontalOptions="Center"
+                            Command="{Binding DeleteAllCoinsSelected}"/>
+                    </StackLayout>
+                </CollectionView.Footer>
+            </CollectionView>
+
+
     </ScrollView>
 
 </ContentPage>

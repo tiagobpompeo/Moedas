@@ -14,10 +14,9 @@ namespace Moedas
         public static CoinRepository CoinRepository { get; private set; }
         #endregion
 
-        public App(string pathDataBase)
+        public App()
         {
-            InitializeComponent();
-            CoinRepository = new CoinRepository(pathDataBase);//procurar fazer pelo container
+            InitializeComponent();           
             InitializeApp();
             InitializeNavigation();           
         }

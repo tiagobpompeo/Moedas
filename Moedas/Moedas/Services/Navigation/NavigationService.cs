@@ -23,10 +23,8 @@ namespace Moedas.Services.Navigation
         }
 
         public async Task InitializeAsync()
-        {
-           
-            await NavigateToAsync<CoinsViewModel>();
-           
+        {           
+            await NavigateToAsync<CoinsViewModel>();           
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : BaseViewModel
@@ -88,14 +86,17 @@ namespace Moedas.Services.Navigation
         {
             Page page = CreateAndBindPage(viewModelType, parameter);
 
-            if (page is MainPage)
+            if (page is MainPage || page is RegisterView)
             {
                 CurrentApplication.MainPage = page;
             }
-           
+            else if (page is LoginView)
+            {
+                CurrentApplication.MainPage = page;
+            }
             else if (CurrentApplication.MainPage is MainPage)
             {
-                var mainPage = CurrentApplication.MainPage as MainPage;              
+               
             }
             else
             {
@@ -143,7 +144,9 @@ namespace Moedas.Services.Navigation
         //map to join VM and VIEW dont need ViewModel Locator others cases is resolve trought Utility.ViewModelLocator
         private void CreatePageViewModelMappings()
         {
-            _mappings.Add(typeof(CoinsViewModel), typeof(MainPage));           
+            _mappings.Add(typeof(LoginViewModel), typeof(LoginView));         
+            _mappings.Add(typeof(CoinsViewModel), typeof(MainPage));
+          
         }
     }
 }

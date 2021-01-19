@@ -17,9 +17,11 @@ namespace Moedas.Bootstrap
         {
             var builder = new ContainerBuilder();
 
-            //ViewModels
-            builder.RegisterType<CoinsViewModel>();
-           
+            //ViewModels            
+            builder.RegisterType<LoginViewModel>();         
+            builder.RegisterType<CoinsViewModel>();     
+                       
+
 
             //services - data
             builder.RegisterType<CoinsService>().As<ICoinsService>();
