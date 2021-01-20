@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"            
              xmlns:ff="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:resource="clr-namespace:Moedas.Resources"
              x:Class="Moedas.MainPage">
 
     <ScrollView>
-      
-            
-            
-    
-            <CollectionView 
+
+
+
+        <CollectionView 
                 Margin="0,0,0,20"
                 BackgroundColor="LightGray"
                 ItemsSource="{Binding SelectedItems}"  
@@ -19,7 +19,7 @@
                     <StackLayout>
                       <Label 
                         Margin="30"
-                        Text="Selecione uma moeda para salvar" 
+                        Text="{x:Static resource:AppResources.TitleCoinPage}" 
                         FontAttributes="Bold" 
                         HorizontalTextAlignment="Center"
                         FontSize="Title"
@@ -27,16 +27,17 @@
 
                         <Picker 
                             Margin="10,0,10,0"       
-                            Title="Selecione uma Moeda"
+                            Title="{x:Static resource:AppResources.TextSelectCoin}" 
                             FontSize="Large"
                             ItemsSource="{Binding Coins}" 
                             ItemDisplayBinding="{Binding nomeFormatado}" 
                             SelectedItem="{Binding SelectedCoin}" />
 
-                        <Label  
+                   
+                    <Label  
                             Margin="10,30,10,0"   
                             TextDecorations="Underline"
-                            Text="Moedas Selecionadas: "
+                            Text="{x:Static resource:AppResources.TextSelectedCoins}" 
                             FontSize="Medium" 
                             TextColor="Black" 
                             HorizontalOptions="Start"/> 
@@ -71,7 +72,7 @@
                         <Button 
                             Margin="30"
                             BackgroundColor="AntiqueWhite"
-                            Text="Deletar Selecionados"
+                            Text="{x:Static resource:AppResources.TextButtonDelete}" 
                             HorizontalOptions="Center"
                             Command="{Binding DeleteAllCoinsSelected}"/>
                     </StackLayout>

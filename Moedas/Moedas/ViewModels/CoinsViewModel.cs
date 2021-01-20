@@ -75,6 +75,7 @@ namespace Moedas.ViewModels
                     try
                     {
                         _local.Delete<CoinSqliteModel>();
+                        RefreshSelected();
                     }
                     catch (Exception ex)
                     {

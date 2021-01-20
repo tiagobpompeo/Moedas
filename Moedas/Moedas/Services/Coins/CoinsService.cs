@@ -19,7 +19,7 @@ namespace Moedas.Services.Coins
 
         public async Task<List<CoinsModel.Value>> GetAllCoinsAsync()
         {
-            string uri = $"{ApiConstants.BaseApiUrl}";
+            string uri = $"{ApiConstants.BaseApiUrl}"+ApiConstants.Moedas;
             var coins = await _genericRepository.GetAsync<CoinsModel>(uri);
           
             var listCoins = coins.value;
